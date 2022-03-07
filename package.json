@@ -1,0 +1,41 @@
+{
+  "name": "metaverseMusic",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@tailwindcss/forms": "^0.4.0",
+    "@types/aframe": "^1.2.0",
+    "@types/w3c-generic-sensor": "^1.0.5",
+    "@types/webxr": "^0.2.3",
+    "aframe": "^1.2.0",
+    "ar.js": "^2.2.2",
+    "autoprefixer": "^10.4.2",
+    "axios": "^0.25.0",
+    "copy-webpack-plugin": "^10.2.4",
+    "crypto": "^1.0.1",
+    "css-loader": "^6.6.0",
+    "fs": "^0.0.1-security",
+    "html-webpack-plugin": "^5.5.0",
+    "path": "^0.12.7",
+    "postcss": "^8.4.6",
+    "postcss-loader": "^6.2.1",
+    "postcss-preset-env": "^7.3.1",
+    "style-loader": "^3.3.1",
+    "tailwindcss": "^3.0.18",
+    "three": "^0.137.5",
+    "ts-loader": "^9.2.6",
+    "typescript": "^4.5.5",
+    "webpack": "^5.68.0",
+    "webpack-dev-server": "^4.7.4"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "webpack --watch",
+    "build": "webpack",
+    "start": "webpack serve --open --https"
+  },
+  "devDependencies": {
+    "webpack-cli": "^4.9.2"
+  }
+}
