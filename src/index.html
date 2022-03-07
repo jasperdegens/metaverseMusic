@@ -5,8 +5,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Metaverse Music</title>
+    <script src="bundle.js"></script>
 </head>
 <body class="">
-    
+    <a-scene>
+        <a-assets>
+            <audio id="violin1" src="assets/Voilin 1 A.mp3" preload="auto"></audio>
+            <audio id="violin2" src="assets/Voilin 1 A.mp3" preload="auto"></audio>
+            <audio id="viola" src="assets/Viola A.mp3" preload="auto"></audio>
+            <audio id="chello" src="assets/Chello A.mp3" preload="auto"></audio>
+        </a-assets>
+        <a-sky color="lightblue"></a-sky>
+        <a-entity 
+            position="0 1 -2"
+            id="box"
+            geometry="primitive: box; width: 1; height: 1; depth: 1"
+            moveable="parentElemId: main-camera"
+        ></a-entity>
+        <a-entity 
+            position="-2 1 -2"
+            id="box"
+            geometry="primitive: box; width: 1; height: 1; depth: 1"
+            moveable="parentElemId: main-camera"
+        ></a-entity>
+        <a-entity id="main-camera" camera="active: true" look-controls wasd-controls position="0 1.6 0">
+            <a-entity cursor="fuse: false;"
+                position="0 0 -1"
+                geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+                material="color: black; shader: flat">
+            </a-entity>
+        </a-entity>
+    </a-scene>
 </body>
 </html>
