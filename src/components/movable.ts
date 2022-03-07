@@ -24,6 +24,9 @@ const moveableComponent: MovableComponent = {
             const targetEl = evt.target! as Entity<ObjectMap<Component<any, System<any>>>>
             targetEl.setAttribute('moveable', 'isMoving', !(targetEl.getAttribute('moveable').isMoving))
         })
+        this.el.addEventListener('mouseenter', () => {
+            console.log('move')
+        })
     },
     moveVectorHelper: new THREE.Vector3(),
     moving : false,
@@ -36,7 +39,6 @@ const moveableComponent: MovableComponent = {
         return rotVec
     })(),
     startMoving: function () {
-        console.log("move started")
         // set parent elem
         this.parentObject3D = (document.getElementById(this.data.parentElemId) as Entity<ObjectMap<Component<any, System<any>>>>).object3D
         this.movePrevPos.copy(this.parentObject3D.position)

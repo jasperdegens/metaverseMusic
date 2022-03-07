@@ -1,6 +1,7 @@
 const path = require('path');
 const CopyPlugin = require("copy-webpack-plugin");
 
+
 module.exports = {
   mode: 'development',
   entry: './src/index.ts',
@@ -23,6 +24,10 @@ module.exports = {
           },
           'postcss-loader'
         ]
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
       },
     ],
   },
