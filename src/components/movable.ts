@@ -16,7 +16,7 @@ export type MovableComponent = ComponentDefinition<IMovable>
 const moveableComponent: MovableComponent = {
     schema: {
         isMoving: {type: 'boolean', default: false},
-        parentElemId: {type: 'string', default: ''},
+        parentElemId: {type: 'string', default: 'main-camera'},
     },
     init: function () {
         const thisObj = this

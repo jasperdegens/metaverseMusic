@@ -4,6 +4,8 @@ import ThreeMeshUI from 'three-mesh-ui'
 require('aframe')
 require('./components/movable')
 require('./components/musicPlayerUi')
+require('./components/walletUi')
+require('./components/instrument')
 
 
 // add threemeshui update block

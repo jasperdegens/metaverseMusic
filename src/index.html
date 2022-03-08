@@ -9,14 +9,14 @@
     <script src="https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js"></script>
 </head>
 <body class="">
-    <a-scene>
+    <a-scene stats webxr>
         <a-assets>
-            <audio id="violin1" src="assets/Voilin 1 A.mp3" preload="auto"></audio>
+            <!-- <audio id="violin1" src="assets/Voilin 1 A.mp3" preload="auto"></audio>
             <audio id="violin2" src="assets/Voilin 2 A.mp3" preload="auto"></audio>
             <audio id="viola" src="assets/Viola A.mp3" preload="auto"></audio>
-            <audio id="chello" src="assets/Chello A.mp3" preload="auto"></audio>
+            <audio id="chello" src="assets/Chello A.mp3" preload="auto"></audio> -->
         </a-assets>
-        <a-sky color="lightblue"></a-sky>
+        <!-- <a-sky color="lightblue"></a-sky> -->
         <a-entity 
             position="0 1 -2"
             id="box"
@@ -38,10 +38,26 @@
                 material="color: black; shader: flat">
             </a-entity>
         </a-entity>
+
+        <!-- UI -->
         <a-entity
             music-player-ui
             position="0 2 -1"
         ></a-entity> 
+        <a-entity
+            geometry="primitive: plane; width: 1; height: 1"
+            position="-1 2 -1"
+        >
+            <a-entity
+                geometry="primitive: plane; width: 0.9; height: 0.5"
+                text="value: Connect Sequence; align: center; anchor: center"
+                position="0 0 0.01"
+                wallet-sequence
+            ></a-entity>
+        </a-entity>
+        <a-entity
+            instrument-controller
+        ></a-entity>
     </a-scene>
 </body>
 </html>
