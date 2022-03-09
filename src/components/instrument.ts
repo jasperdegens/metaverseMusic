@@ -1,5 +1,6 @@
 import { ComponentDefinition } from "aframe";
 
+const defaultFont = 'assets/Plaster-Regular.ttf'
 
 interface IInstrumentProps {
 
@@ -19,36 +20,44 @@ const sampleTrackData: ITrackData[] = [
     {
         name: 'Vocals',
         instrument: "vocals",
-        src: ''
+        src: 'assets/violin1AMono.mp3'
     },
     {
-        name: 'Vocals',
-        instrument: "guitar",
-        src: ''
+        name: 'Keys',
+        instrument: "keys",
+        src: 'assets/chelloAMono.mp3'
     },
     {
-        name: 'Vocals',
+        name: 'Drums',
         instrument: "drums",
-        src: ''
+        src: 'assets/violaAMono.mp3'
+    },
+    {
+        name: 'Bass',
+        instrument: "bass",
+        src: 'assets/violin2AMono.mp3'
     }
 ]
 
 interface IInstrumentControllerProps {
-    setupTrack: (tracks: ITrackData[]) => void
+    setupTracks: (tracks: ITrackData[]) => void
 }
 
 const instrumentController: ComponentDefinition<IInstrumentControllerProps> = {
     init: function () {
-        this.setupTrack(sampleTrackData)
+        this.setupTracks(sampleTrackData)
     },
-    setupTrack: function(tracks: ITrackData[]) {
+    setupTracks: function(tracks: ITrackData[]) {
         for (let i = 0; i < tracks.length; i++) {
             const trackData = tracks[i];
 
             const track = document.createElement('a-entity')
-            track.setAttribute('sound', 'src', trackData.src)
+            track.setAttribute('sound', 'src', `url(${trackData.src})`)
 
-            track.setAttribute('instrument', 'instrumentType', trackData.instrument)
+            track.setAttribute('instrument', {
+                'instrumentType': trackData.instrument,
+                name: trackData.name
+            })
 
             track.setAttribute('position', `${-(tracks.length / 2) * 2 + i * 2 } 1 -1`)
 
@@ -59,11 +68,36 @@ const instrumentController: ComponentDefinition<IInstrumentControllerProps> = {
     }
 }
 
+const instrumentUi: ComponentDefinition<IInstrumentControllerProps> = {
+    init: function () {
+        this.setupTracks(sampleTrackData)
+    },
+    setupTracks: function (tracks) {
+        
+        // build base panel
+        const container = document.createElement('a-entity')
+        container.setAttribute('geometry', {
+            primitive: 'plane',
+            height: 3,
+            width: 1
+        })
+        container.setAttribute('position', '0 2.5 -3')
+
+        for (let i = 0; i < tracks.length; i++) {
+            const trackData = tracks[i];
+            
+        }
+
+        this.el.appendChild(container)
+    }
+}
+
 
 const instrumentComponemt: InstrumentComponent = {
     dependencies: ['sound'],
     schema: {
-        instrumentType: {type: 'string'}
+        instrumentType: {type: 'string'},
+        name: {type: 'string'}
     },
     update: function () {
         // create geom depending on instrument type
@@ -98,9 +132,34 @@ const instrumentComponemt: InstrumentComponent = {
             depth: 1,
             height: 1
         })
+        
+        const labelDepth = 0.02
+        const instrumentLabel = document.createElement('a-entity')
+        instrumentLabel.setAttribute('text', {
+            value: this.data.name,
+            align: 'center',
+            anchor: 'center',
+            color: "#000",
+            zOffset: labelDepth / 2 + 0.01
+        })
+        instrumentLabel.setAttribute('width', '1')
+        instrumentLabel.setAttribute('height', '1')
+        instrumentLabel.setAttribute('geometry', {
+            primitive: 'box',
+            height: 0.5,
+            width: 1,
+            depth: 0.02,
+        })
+        instrumentLabel.setAttribute('position', `0 1.5 0`)
+        instrumentLabel.addEventListener('click', () => {
+            console.log(instrumentLabel.getAttribute('text'))
+        })
+        this.el.appendChild(instrumentLabel)
+
     }
 }
 
 
 AFRAME.registerComponent('instrument', instrumentComponemt)
+AFRAME.registerComponent('instrument-ui', instrumentUi)
 AFRAME.registerComponent('instrument-controller', instrumentController)

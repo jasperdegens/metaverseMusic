@@ -9,13 +9,37 @@
     <script src="https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js"></script>
 </head>
 <body class="">
-    <a-scene stats webxr>
+    <a-scene stats webxr vr-mode-ui="enterVRButton: #myEnterVRButton; enterARButton: #myEnterARButton">
+    <div
+        class="absolute hidden w-screen h-screen z-50 bg-slate-500 flex flex-col justify-center items-center"
+    >
+    <main class="max-w-2xl p-12 rounded-lg drop-shadow-lg bg-slate-100">
+        <div class="text-center">
+          <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
+            <span class="block xl:inline">Metaverse</span>
+            <span class="block text-indigo-600 xl:inline">Music</span>
+          </h1>
+          <p class="text-left mt-3 max-w-md mx-auto text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">Ever wonder how music might exist in the metaverse? Metaverse music is a WebXR prototype that puts you inside your music, creating a spatial, interactive experience. Jump in and find out how cool music can be!</p>
+          <p class="mt-3 max-w-md mx-auto text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl font-bold">Please use headphones to best enjoy this spatial auditory experience!</p>
+          <div class="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
+            <div class="rounded-md shadow">
+              <a id="myEnterVRButton" href="#" class="experience-start w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"> Enter VR </a>
+            </div>
+            <div class="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
+              <a id="myEnterARButton" href="#" class="experience-start w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10"> Enter AR </a>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
         <a-assets>
             <!-- <audio id="violin1" src="assets/Voilin 1 A.mp3" preload="auto"></audio>
             <audio id="violin2" src="assets/Voilin 2 A.mp3" preload="auto"></audio>
             <audio id="viola" src="assets/Viola A.mp3" preload="auto"></audio>
             <audio id="chello" src="assets/Chello A.mp3" preload="auto"></audio> -->
+            <a-asset-item id="textfont3" src="assets/Plaster-Regular.ttf"></a-asset-item>
         </a-assets>
+        <a-sky hide-on-enter-ar color="skyblue"></a-sky>
         <!-- <a-sky color="lightblue"></a-sky> -->
         <a-entity 
             position="0 1 -2"
@@ -33,14 +57,14 @@
         ></a-entity>
         <a-entity id="main-camera" camera="active: true" look-controls wasd-controls position="0 1.6 0">
             <a-entity cursor="fuse: false;"
-                position="0 0 -1"
-                geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+                position="0 0 -0.2"
+                geometry="primitive: ring; radiusInner: 0.003; radiusOuter: 0.008"
                 material="color: black; shader: flat">
             </a-entity>
         </a-entity>
 
         <!-- UI -->
-        <a-entity
+        <!-- <a-entity
             music-player-ui
             position="0 2 -1"
         ></a-entity> 
@@ -54,7 +78,10 @@
                 position="0 0 0.01"
                 wallet-sequence
             ></a-entity>
-        </a-entity>
+        </a-entity> -->
+        <!-- <a-entity
+            instrument-ui
+        ></a-entity> -->
         <a-entity
             instrument-controller
         ></a-entity>

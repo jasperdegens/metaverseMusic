@@ -1,19 +1,21 @@
-import ThreeMeshUI from 'three-mesh-ui'
-
 
 require('aframe')
+require('./components/bevelBox.js')
 require('./components/movable')
 require('./components/musicPlayerUi')
 require('./components/walletUi')
 require('./components/instrument')
+require('./main.css')
 
 
 // add threemeshui update block
 window.addEventListener('load', () => {
-    const meshUILoop = () => {
-        ThreeMeshUI.update()
-        requestAnimationFrame(meshUILoop)
+
+    const startButtons = document.getElementsByClassName('experience-start')
+    for(const b of startButtons) {
+        b.addEventListener('click', (e) => {
+            console.log(e)
+        })
     }
 
-    requestAnimationFrame(meshUILoop)
 })
