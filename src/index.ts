@@ -7,6 +7,7 @@ require('./components/musicPlayerUi')
 require('./components/walletUi')
 require('./components/instrument')
 require('./main.css')
+require('./components/ui/button')
 
 
 // add threemeshui update block
@@ -17,7 +18,8 @@ window.addEventListener('load', () => {
             {type: 'svg', src: 'assets/quarterNotes.svg'}
         ],
         rotate: true,
-        size: 3
+        size: 3,
+        
     };
     var confetti = new ConfettiGenerator(confettiSettings);
     confetti.render();

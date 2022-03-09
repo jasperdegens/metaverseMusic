@@ -1,4 +1,4 @@
-import { ComponentDefinition } from "aframe";
+import { ComponentDefinition, DetailEvent } from "aframe";
 
 const defaultFont = 'assets/Plaster-Regular.ttf'
 
@@ -129,35 +129,70 @@ const instrumentComponemt: InstrumentComponent = {
                 break;
         }
 
-        this.el.setAttribute('geometry', {
+        // create geom elem
+        const geomEl = document.createElement('a-entity')
+        geomEl.setAttribute('geometry', {
             primitive: geom,
             radius: 1,
             width: 1,
             depth: 1,
             height: 1
         })
+
+        // add in hover anims -- needs to be initted first because of aframe error
+        setTimeout(() => {
+            geomEl.setAttribute('animation__hoverStartScale', {
+                property: 'scale',
+                to: '1.1 1.1 1.1s',
+                startEvents: 'mouseenter',
+                dur: 125,
+            })
+
+            geomEl.setAttribute('animation__hoverStopScale', {
+                property: 'scale',
+                to: '1 1 1',
+                startEvents: 'mouseleave',
+                dur: 125
+            })
+        }, 100)
+
         
-        const labelDepth = 0.02
+        this.el.appendChild(geomEl)
+        
+        
         const instrumentLabel = document.createElement('a-entity')
-        instrumentLabel.setAttribute('text', {
-            value: this.data.name,
-            align: 'center',
-            anchor: 'center',
-            color: "#000",
-            zOffset: labelDepth / 2 + 0.01
-        })
-        instrumentLabel.setAttribute('geometry', {
-            primitive: 'box',
-            height: 0.5,
-            width: 1,
-            depth: 0.02,
+        instrumentLabel.setAttribute('button', {
+            text: this.data.name
         })
         instrumentLabel.setAttribute('position', `0 1.5 0`)
+        
         instrumentLabel.addEventListener('click', () => {
             console.log(instrumentLabel.getAttribute('text'))
         })
         this.el.appendChild(instrumentLabel)
-
+        
+        // hook up mouseover to trigger label mouseover
+        geomEl.addEventListener('mouseenter', (evt) => {
+            const e = evt as CustomEvent<any>
+            if(e.bubbles)
+                instrumentLabel.emit('mouseenter', e.detail, false)
+        })
+        geomEl.addEventListener('mouseleave', (evt) => {
+            const e = evt as CustomEvent<any>
+            if(e.bubbles)
+                instrumentLabel.emit('mouseleave', e.detail, false)
+        })
+        // hook up mouseover to trigger label mouseover
+        instrumentLabel.addEventListener('mouseenter', (evt) => {
+            const e = evt as CustomEvent<any>
+            if(e.bubbles)
+                geomEl.emit('mouseenter', e.detail, false)
+        })
+        instrumentLabel.addEventListener('mouseleave', (evt) => {
+            const e = evt as CustomEvent<any>
+            if(e.bubbles)
+                geomEl.emit('mouseleave', e.detail, false)
+        })
     }
 }
 

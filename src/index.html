@@ -11,7 +11,7 @@
 <body class="">
     <a-scene stats webxr vr-mode-ui="enterVRButton: #myEnterVRButton; enterARButton: #myEnterARButton">
     <div
-        class="absolute w-screen h-screen z-50 bg-slate-500 "
+        class="absolute hidden w-screen h-screen z-50 bg-slate-500 "
     ><div class="'relative w-full h-full flex flex-col justify-center items-center">
     <canvas
         id="confetti-canvas"
@@ -45,22 +45,13 @@
             <audio id="chello" src="assets/Chello A.mp3" preload="auto"></audio> -->
             <a-asset-item id="textfont3" src="assets/Plaster-Regular.ttf"></a-asset-item>
         </a-assets>
+        <a-entity 
+            button="text: hello"
+            position="0 2 -1"
+        ></a-entity>
         <a-sky hide-on-enter-ar color="skyblue"></a-sky>
         <!-- <a-sky color="lightblue"></a-sky> -->
-        <a-entity 
-            position="0 1 -2"
-            id="box"
-            geometry="primitive: box; width: 1; height: 1; depth: 1"
-            moveable="parentElemId: main-camera"
-            sound="src: #violin2;"
-        ></a-entity>
-        <a-entity 
-            position="-2 1 -2"
-            id="box"
-            geometry="primitive: box; width: 1; height: 1; depth: 1"
-            moveable="parentElemId: main-camera"
-            sound="src: #chello;"
-        ></a-entity>
+        
         <a-entity id="main-camera" camera="active: true" look-controls wasd-controls position="0 1.6 0">
             <a-entity cursor="fuse: false;"
                 position="0 0 -0.2"
