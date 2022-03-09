@@ -61,7 +61,11 @@ const instrumentController: ComponentDefinition<IInstrumentControllerProps> = {
 
             track.setAttribute('position', `${-(tracks.length / 2) * 2 + i * 2 } 1 -1`)
 
-            track.setAttribute('moveable', '')
+            const id = `track-${i}`
+            track.setAttribute('id', id)
+            track.setAttribute('moveable', {
+                moveEl: id
+            })
 
             this.el.appendChild(track)
         }
@@ -142,8 +146,6 @@ const instrumentComponemt: InstrumentComponent = {
             color: "#000",
             zOffset: labelDepth / 2 + 0.01
         })
-        instrumentLabel.setAttribute('width', '1')
-        instrumentLabel.setAttribute('height', '1')
         instrumentLabel.setAttribute('geometry', {
             primitive: 'box',
             height: 0.5,

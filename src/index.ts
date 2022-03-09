@@ -1,6 +1,5 @@
 
 require('aframe')
-require('./components/bevelBox.js')
 require('./components/movable')
 require('./components/musicPlayerUi')
 require('./components/walletUi')
