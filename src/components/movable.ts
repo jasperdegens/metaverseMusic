@@ -52,10 +52,12 @@ const moveableComponent: MovableComponent = {
     startMoving: function () {
         // set parent elem
         this.parentObject3D = (document.getElementById(this.data.parentElemId) as Entity<ObjectMap<Component<any, System<any>>>>).object3D
-        this.movePrevPos.copy(this.parentObject3D!.position).sub(this.moveTarget!.position)
+        const targetWorldPos = new THREE.Vector3()
+        this.moveTarget!.getWorldPosition(targetWorldPos)
+        this.movePrevPos.copy(this.parentObject3D!.position).sub(targetWorldPos)
         this.movePrevPos.copy(this.parentObject3D.position)
         this.movePrevRot.copy(this.parentObject3D.rotation)
-        this.offset.copy(this.parentObject3D!.position).sub(this.moveTarget!.position)
+        this.offset.copy(this.parentObject3D!.position).sub(targetWorldPos)
         this.offset.y = 0
         this.moving = true
     },
@@ -79,7 +81,7 @@ const moveableComponent: MovableComponent = {
         this.moveRotHelper.z = 0
 
         this.moveVectorHelper.applyEuler(this.moveRotHelper).multiplyScalar(this.offset.length()).add(this.parentObject3D!.position)
-
+        this.moveTarget!.parent!.worldToLocal(this.moveVectorHelper)
         this.moveTarget?.position.set(this.moveVectorHelper.x, this.moveTarget?.position.y, this.moveVectorHelper.z);
         this.moveTarget?.rotation.copy(this.moveRotHelper)
 

@@ -1,4 +1,4 @@
-import { ComponentDefinition, DetailEvent } from "aframe";
+import { Component, ComponentDefinition, DetailEvent, Entity, ObjectMap, System } from "aframe";
 
 const defaultFont = 'assets/Plaster-Regular.ttf'
 
@@ -39,15 +39,33 @@ const sampleTrackData: ITrackData[] = [
     }
 ]
 
+export type TrackPositionType = 'surround' | 'stage'
+
 interface IInstrumentControllerProps {
     setupTracks: (tracks: ITrackData[]) => void
+    tracks: Entity<ObjectMap<Component<any, System<any>>>>[],
+    positionTracks: (posType: TrackPositionType) => void
 }
 
-const instrumentController: ComponentDefinition<IInstrumentControllerProps> = {
+const posRadius = 2
+const stageRadiansSpread = 120 / 180 * Math.PI
+
+export type InstrumentController = ComponentDefinition<IInstrumentControllerProps>
+
+const instrumentController: InstrumentController = {
     init: function () {
         this.setupTracks(sampleTrackData)
     },
+    tracks: [],
+    positionTracks: function (posType: TrackPositionType) {
+        for(const track of this.tracks) {
+            track.emit(`position-${posType}`, {}, false)
+        }
+    },
     setupTracks: function(tracks: ITrackData[]) {
+
+        const radianInc = Math.PI * 2 / tracks.length
+        const radianOffset = radianInc * 0.5
         for (let i = 0; i < tracks.length; i++) {
             const trackData = tracks[i];
 
@@ -67,34 +85,60 @@ const instrumentController: ComponentDefinition<IInstrumentControllerProps> = {
                 moveEl: id
             })
 
+            const radians = radianInc * i + radianOffset
+            const targetX = Math.cos(radians) * posRadius
+            const targetZ = Math.sin(radians) * posRadius
+            // setup animations
+            track.setAttribute('animation__pos_surround', {
+                property: 'position',
+                to: `${targetX} 1 ${targetZ}`,
+                startEvents: 'position-surround',
+                dur: 750,
+                easing: 'easeInOutCubic'
+            })
+
+            const stageRadians = stageRadiansSpread / 2 - radians / 3.0
+            const stageX = Math.cos(stageRadians) * posRadius * 2 * -1
+            const stageZ = Math.sin(stageRadians) * posRadius * 3
+            track.setAttribute('animation__pos_stage', {
+                property: 'position',
+                to: `${stageZ} 1 ${stageX}`,
+                startEvents: 'position-stage',
+                dur: 750,
+                easing: 'easeInOutCubic'
+            })
+
             this.el.appendChild(track)
+            this.tracks.push(track)
         }
     }
 }
 
-const instrumentUi: ComponentDefinition<IInstrumentControllerProps> = {
-    init: function () {
-        this.setupTracks(sampleTrackData)
-    },
-    setupTracks: function (tracks) {
+
+
+// const instrumentUi: ComponentDefinition<IInstrumentControllerProps> = {
+//     init: function () {
+//         this.setupTracks(sampleTrackData)
+//     },
+//     setupTracks: function (tracks) {
         
-        // build base panel
-        const container = document.createElement('a-entity')
-        container.setAttribute('geometry', {
-            primitive: 'plane',
-            height: 3,
-            width: 1
-        })
-        container.setAttribute('position', '0 2.5 -3')
+//         // build base panel
+//         const container = document.createElement('a-entity')
+//         container.setAttribute('geometry', {
+//             primitive: 'plane',
+//             height: 3,
+//             width: 1
+//         })
+//         container.setAttribute('position', '0 2.5 -3')
 
-        for (let i = 0; i < tracks.length; i++) {
-            const trackData = tracks[i];
+//         for (let i = 0; i < tracks.length; i++) {
+//             const trackData = tracks[i];
             
-        }
+//         }
 
-        this.el.appendChild(container)
-    }
-}
+//         this.el.appendChild(container)
+//     }
+// }
 
 
 const instrumentComponemt: InstrumentComponent = {
@@ -198,5 +242,5 @@ const instrumentComponemt: InstrumentComponent = {
 
 
 AFRAME.registerComponent('instrument', instrumentComponemt)
-AFRAME.registerComponent('instrument-ui', instrumentUi)
+// AFRAME.registerComponent('instrument-ui', instrumentUi)
 AFRAME.registerComponent('instrument-controller', instrumentController)

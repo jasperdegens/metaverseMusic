@@ -20,6 +20,8 @@ const buttonComponent: ButtonComponent = {
         colorHover: {type: 'color', default: '#344955'},
         bgColor: {type: 'color', default: '#344955'},
         bgColorHover: {type: 'color', default: '#F9AA33'},
+        canInteract: {type: 'boolean', default: 'true'},
+        wrapOffset: {type: 'int', default: '8'}
     },
     update: function () {
         this.el.setAttribute('text', {
@@ -29,7 +31,7 @@ const buttonComponent: ButtonComponent = {
             color: this.data.color,
             // prevent z-fighting
             zOffset: this.data.depth / 2 + 0.01,
-            wrapCount: this.data.text.length + 8
+            wrapCount: this.data.text.length + this.data.wrapOffset
         })
 
         // can replace this with better geom later
@@ -44,35 +46,37 @@ const buttonComponent: ButtonComponent = {
             color: this.data.bgColor
         })
 
-        this.el.setAttribute('animation__hoverStart', {
-            property: 'components.material.material.color',
-            type: 'color',
-            to: this.data.bgColorHover,
-            startEvents: 'mouseenter',
-            dur: 125,
-        })
-        this.el.setAttribute('animation__hoverEnd', {
-            property: 'components.material.material.color',
-            type: 'color',
-            to: this.data.bgColor,
-            startEvents: 'mouseleave',
-            dur: 125
-        })
+        if(this.data.canInteract) {
+            this.el.setAttribute('animation__hoverStart', {
+                property: 'components.material.material.color',
+                type: 'color',
+                to: this.data.bgColorHover,
+                startEvents: 'mouseenter',
+                dur: 125,
+            })
+            this.el.setAttribute('animation__hoverEnd', {
+                property: 'components.material.material.color',
+                type: 'color',
+                to: this.data.bgColor,
+                startEvents: 'mouseleave',
+                dur: 125
+            })
 
-        this.el.setAttribute('animation__hoverStartText', {
-            property: 'text.color',
-            type: 'color',
-            to: this.data.colorHover,
-            startEvents: 'mouseenter',
-            dur: 125,
-        })
-        this.el.setAttribute('animation__hoverEndText', {
-            property: 'text.color',
-            type: 'color',
-            to: this.data.color,
-            startEvents: 'mouseleave',
-            dur: 125
-        })
+            this.el.setAttribute('animation__hoverStartText', {
+                property: 'text.color',
+                type: 'color',
+                to: this.data.colorHover,
+                startEvents: 'mouseenter',
+                dur: 125,
+            })
+            this.el.setAttribute('animation__hoverEndText', {
+                property: 'text.color',
+                type: 'color',
+                to: this.data.color,
+                startEvents: 'mouseleave',
+                dur: 125
+            })
+        }
     },
     
 }

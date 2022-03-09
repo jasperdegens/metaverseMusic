@@ -45,10 +45,7 @@
             <audio id="chello" src="assets/Chello A.mp3" preload="auto"></audio> -->
             <a-asset-item id="textfont3" src="assets/Plaster-Regular.ttf"></a-asset-item>
         </a-assets>
-        <a-entity 
-            button="text: hello"
-            position="0 2 -1"
-        ></a-entity>
+        
         <a-sky hide-on-enter-ar color="skyblue"></a-sky>
         <!-- <a-sky color="lightblue"></a-sky> -->
         
@@ -61,6 +58,48 @@
         </a-entity>
 
         <!-- UI -->
+
+        <!-- intro UI -->
+        <a-entity 
+            geometry="primitive: box; height: 3; width: 2; depth: 0.02"  
+            position="0 3.2 -2"
+            rotation="20 0 0"  
+        >
+            <a-entity
+                button="text: Welcome to Metaverse Music; width: 1.8; height: 0.4; wrapOffset: 1; canInteract: false;"
+                position="0 1.2 0.02"
+            ></a-entity>
+            
+            <a-entity
+                geometry="primitive: box; height: 1; width: 1.8; depth: 0.02"
+                position="0 0 0.02"
+
+            >
+                <a-entity
+                    id="explainer-text"
+                    text="width: 1.6"
+                    position="0 0 0.02"
+
+                >
+                </a-entity>
+            </a-entity>
+            <a-entity
+                data-postype="surround"
+                class="instrument-position-btn"
+                button="text: Surround Mode; width: 0.85"
+                position="-0.46 -0.7 0.02"
+            >
+            </a-entity>
+            <a-entity
+            data-postype="stage"
+            class="instrument-position-btn"
+            button="text: Stage Mode; width: 0.85"
+            position="0.46 -0.7 0.02"
+        >
+        </a-entity>
+        
+        </a-entity>
+
         <!-- <a-entity
             music-player-ui
             position="0 2 -1"
@@ -80,7 +119,9 @@
             instrument-ui
         ></a-entity> -->
         <a-entity
+            id='instrument-controller'
             instrument-controller
+            position="0 0 -2"
         ></a-entity>
     </a-scene>
 </body>
