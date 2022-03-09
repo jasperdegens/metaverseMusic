@@ -13,6 +13,7 @@
     "ar.js": "^2.2.2",
     "autoprefixer": "^10.4.2",
     "axios": "^0.25.0",
+    "confetti-js": "^0.0.18",
     "copy-webpack-plugin": "^10.2.4",
     "crypto": "^1.0.1",
     "css-loader": "^6.6.0",
