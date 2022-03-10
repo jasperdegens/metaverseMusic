@@ -26,13 +26,11 @@ const moveableComponent: MovableComponent = {
         const thisObj = this
         const moveElem = (document.getElementById(this.data.moveEl) as Entity<ObjectMap<Component<any, System<any>>>>)
         this.moveTarget = moveElem.object3D
-        this.el.addEventListener('click', function (evt) {
-            // const targetEl = evt.target! as Entity<ObjectMap<Component<any, System<any>>>>
-            const isMoving = (moveElem.getAttribute('moveable').isMoving)
-            moveElem!.setAttribute('moveable', {
-                'isMoving': !isMoving,
-            })
-        })
+        this.startMoving = this.startMoving.bind(this)
+        this.stopMoving = this.stopMoving.bind(this)
+        this.el.addEventListener('click', this.startMoving)
+
+        
         this.el.addEventListener('mouseenter', () => {
             
         })
@@ -60,9 +58,23 @@ const moveableComponent: MovableComponent = {
         this.offset.copy(this.parentObject3D!.position).sub(targetWorldPos)
         this.offset.y = 0
         this.moving = true
+
+        // add click handler to stop move when clicked next
+        const thisElem = this
+        setTimeout(() => {
+            document.addEventListener('click', thisElem.stopMoving)
+        }, 20)
+
+        this.el.removeEventListener('click', this.startMoving)
+
     },
     stopMoving: function() {
+        document.removeEventListener('click', this.stopMoving)
         this.moving = false
+        const thisElem = this
+        setTimeout(() => {
+            thisElem.el.addEventListener('click', this.startMoving)
+        }, 20)
     },
     move: function () {
         // calculate position difference
@@ -91,18 +103,18 @@ const moveableComponent: MovableComponent = {
     },
     tick: function () {
         // handle move start
-        if(this.data.isMoving && !this.moving) {
-            this.startMoving()
-            return
-        }
+        // if(this.data.isMoving && !this.moving) {
+        //     this.startMoving()
+        //     return
+        // }
 
-        // handle move stop
-        if(!this.data.isMoving && this.moving) {
-            this.stopMoving()
-            return
-        }
+        // // handle move stop
+        // if(!this.data.isMoving && this.moving) {
+        //     this.stopMoving()
+        //     return
+        // }
 
-        if(this.data.isMoving && this.moving) {
+        if(this.moving) {
             this.move()
         }
     }

@@ -44,7 +44,7 @@ const sampleTrackData: ITrackData[] = [
     }
 ]
 
-export type TrackPositionType = 'surround' | 'stage'
+export type TrackPositionType = 'surround' | 'stage' | 'mono' | 'stereo'
 
 interface IInstrumentControllerProps {
     setupTracks: (tracks: ITrackData[]) => void
@@ -113,6 +113,22 @@ const instrumentController: InstrumentController = {
                 property: 'position',
                 to: `${stageZ.toFixed(2)} 0 ${stageX.toFixed(2)}`,
                 startEvents: 'position-stage',
+                dur: 750,
+                easing: 'easeInOutCubic'
+            })
+
+            track.setAttribute('animation__pos_mono', {
+                property: 'position',
+                to: `${Math.random() * 2} 0 -3`,
+                startEvents: 'position-mono',
+                dur: 750,
+                easing: 'easeInOutCubic'
+            })
+
+            track.setAttribute('animation__pos_stereo', {
+                property: 'position',
+                to: `${i % 2 == 0 ? `${Math.random() * -2 + -1}` : `${Math.random() * 2 + 1}`} 0 -3`,
+                startEvents: 'position-stereo',
                 dur: 750,
                 easing: 'easeInOutCubic'
             })
