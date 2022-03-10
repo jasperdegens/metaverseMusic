@@ -14,6 +14,7 @@
     "baseUrl": ".",
     "esModuleInterop": true,
     "resolveJsonModule": true,
+    "strict": true,
   },
   "include": ["./src/**/*", "./test/**/*"],
   "exclude": ["node_modules"]

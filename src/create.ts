@@ -13,7 +13,9 @@ const handleFormSubmit = async (e: SubmitEvent, form: HTMLFormElement) => {
 
     const fd = new FormData(form)
 
-    fd.delete('file-upload')
+    for(let i = 1; i < 8; i++) {
+        fd.delete(`file-upload-${i}`)
+    }
 
     console.log(fd.get('stem-1-cid'))
 
@@ -23,6 +25,12 @@ const handleFormSubmit = async (e: SubmitEvent, form: HTMLFormElement) => {
     // Define what happens on successful data submission
     XHR.addEventListener( "load", function(event) {
         console.log('siccess')
+        try {
+            const data = JSON.parse(XHR.response)
+            console.log(data)
+        } catch (error) {
+            
+        }
     } );
 
     // Define what happens in case of error
