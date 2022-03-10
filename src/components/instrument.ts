@@ -20,22 +20,27 @@ const sampleTrackData: ITrackData[] = [
     {
         name: 'Vocals',
         instrument: "vocals",
-        src: 'assets/violin1AMono.mp3'
+        src: 'assets/ngce/vocals.mp3'
     },
     {
         name: 'Keys',
         instrument: "keys",
-        src: 'assets/chelloAMono.mp3'
+        src: 'assets/ngce/keys.mp3'
     },
     {
         name: 'Drums',
         instrument: "drums",
-        src: 'assets/violaAMono.mp3'
+        src: 'assets/ngce/drums.mp3'
     },
     {
         name: 'Bass',
         instrument: "bass",
-        src: 'assets/violin2AMono.mp3'
+        src: 'assets/ngce/bass.mp3'
+    },
+    {
+        name: 'Strings',
+        instrument: "guitar",
+        src: 'assets/ngce/strings.mp3'
     }
 ]
 
@@ -47,7 +52,7 @@ interface IInstrumentControllerProps {
     positionTracks: (posType: TrackPositionType) => void
 }
 
-const posRadius = 2
+const posRadius = 3
 const stageRadiansSpread = 120 / 180 * Math.PI
 
 export type InstrumentController = ComponentDefinition<IInstrumentControllerProps>
@@ -70,14 +75,17 @@ const instrumentController: InstrumentController = {
             const trackData = tracks[i];
 
             const track = document.createElement('a-entity')
-            track.setAttribute('sound', 'src', `url(${trackData.src})`)
+            track.setAttribute('sound', {
+                'src': `url(${trackData.src})`,
+                rolloffFactor: 0.2,
+            })
 
             track.setAttribute('instrument', {
                 'instrumentType': trackData.instrument,
                 name: trackData.name
             })
 
-            track.setAttribute('position', `${-(tracks.length / 2) * 2 + i * 2 } 1 -1`)
+            track.setAttribute('position', `${1 + -(tracks.length / 2) * 2 + i * 2 } 1 -3`)
 
             const id = `track-${i}`
             track.setAttribute('id', id)
@@ -88,10 +96,11 @@ const instrumentController: InstrumentController = {
             const radians = radianInc * i + radianOffset
             const targetX = Math.cos(radians) * posRadius
             const targetZ = Math.sin(radians) * posRadius
+            console.log(`${targetX} 1 ${targetZ}`)
             // setup animations
             track.setAttribute('animation__pos_surround', {
                 property: 'position',
-                to: `${targetX} 1 ${targetZ}`,
+                to: `${targetX.toFixed(2)} 1 ${targetZ.toFixed(2)}`,
                 startEvents: 'position-surround',
                 dur: 750,
                 easing: 'easeInOutCubic'
@@ -102,7 +111,7 @@ const instrumentController: InstrumentController = {
             const stageZ = Math.sin(stageRadians) * posRadius * 3
             track.setAttribute('animation__pos_stage', {
                 property: 'position',
-                to: `${stageZ} 1 ${stageX}`,
+                to: `${stageZ.toFixed(2)} 0 ${stageX.toFixed(2)}`,
                 startEvents: 'position-stage',
                 dur: 750,
                 easing: 'easeInOutCubic'

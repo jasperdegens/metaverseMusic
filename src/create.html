@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metaverse Music</title>
+    <script src="create.js"></script>
+</head>
+<body class="w-screen min-h-full bg-slate-500 overflow-x-clip">
+  <canvas
+        id="confetti-canvas"
+        class="fixed w-screen h-screen top-0 bottom-0"
+    >   
+    </canvas>
+    <div class="max-w-4xl px-12 py-8 m-auto my-12 bg-white rounded-lg drop-shadow-lg opacity-95">
+        <h1 class="text-5xl mb-4">Create Metaverse Music</h1>
+        <h2 class="text-3xl mb-12">Build a soundscape from your stems!</h2>
+        
+        <form class="space-y-6" method="POST">
+            <div class="py-6">
+              <div class="md:grid md:grid-cols-3 md:gap-6">
+                <div class="md:col-span-1">
+                  <h3 class="text-lg font-medium leading-6 text-gray-900">Song Metadata</h3>
+                  <p class="mt-1 text-sm text-gray-500">Please enter your metadata for your song so that your song will properly load and display!</p>
+                </div>
+                <div class="mt-5 md:mt-0 md:col-span-2">
+                  <div class="space-y-6">
+                    <div class="grid grid-cols-3 gap-6">
+                      <div class="col-span-3 sm:col-span-2">
+                        <label for="song-title" class="block text-sm font-medium text-gray-700"> Song Title </label>
+                        <div class="mt-1 flex rounded-md shadow-sm">
+                          <input required type="text" name="song-title" id="song-title" class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300" placeholder="Killer Track">
+                        </div>
+                      </div>
+                    </div>
+          
+                    <div>
+                      <label for="song-description" class="block text-sm font-medium text-gray-700"> Song Description</label>
+                      <div class="mt-1">
+                        <textarea id="song-description" name="song-description" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md" placeholder="Please include a brief description of your song."></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          
+            <div class="py-6">
+                <div class="md:grid md:grid-cols-3 md:gap-6">
+                  <div class="md:col-span-1">
+                    <h3 class="text-lg font-medium leading-6 text-gray-900">Song Stems</h3>
+                    <p class="mt-1 text-sm text-gray-500">Upload your song stems below. You can upload up to 7 stems per song.</p>
+                  </div>
+                </div>
+            </div>
+
+
+            <div class="py-6">
+              <div class="md:grid md:grid-cols-3 md:gap-6">
+                <div class="md:col-span-1">
+                  <h3 class="text-lg font-medium leading-6 text-gray-900">Song Stem #1</h3>
+                </div>
+                <div class="mt-5 md:mt-0 md:col-span-2">
+                  <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700"> Stem #1 Audio</label>
+                        <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                          <div class="space-y-1 text-center">
+                            <div class="flex justify-center text-sm text-gray-600">
+                              <label for="file-upload" class="relative px-8 py-2 cursor-pointer bg-slate-700 rounded-lg font-medium text-white hover:bg-slate-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+                                <span>Upload Stem #1</span>
+                                <input id="file-upload" name="file-upload" type="file" class="stem-upload sr-only">
+                                <input name="stem-1-cid" type="text" class="hidden">
+                              </label>
+                            </div>
+                            <p class="text-xs text-gray-500">MP3 or WAV</p>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="col-span-6 sm:col-span-3">
+                        <label for="instrument-type" class="block text-sm font-medium text-gray-700">Stem #1 Instrument</label>
+                        <select id="instrument-type" name="stem-1-type" autocomplete="instrument-type-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                          <option>Vocals</option>
+                          <option>Drums</option>
+                          <option>Bass</option>
+                          <option>Keys</option>
+                          <option>Strings</option>
+                          <option>Other</option>
+                        </select>
+                      </div>
+                    </div>
+                </div>
+              </div>
+              <div class="py-10">
+                <div class="md:grid md:grid-cols-3 md:gap-6">
+                  <div class="md:col-span-1">
+                    <h3 class="text-lg font-medium leading-6 text-gray-900">Song Stem #2</h3>
+                  </div>
+                  <div class="mt-5 md:mt-0 md:col-span-2">
+                    <div class="space-y-6">
+                      <div>
+                          <label class="block text-sm font-medium text-gray-700"> Stem #2 Audio</label>
+                          <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                            <div class="space-y-1 text-center">
+                              <div class="flex justify-center text-sm text-gray-600">
+                                <label for="file-upload" class="relative px-8 py-2 cursor-pointer bg-slate-700 rounded-lg font-medium text-white hover:bg-slate-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+                                  <span>Upload Stem #1</span>
+                                  <input id="file-upload" name="file-upload" type="file" class="stem-upload sr-only">
+                                  <input name="stem-2-cid" type="text" class="hidden">
+                                </label>
+                              </div>
+                              <p class="text-xs text-gray-500">MP3 or WAV</p>
+                            </div>
+                          </div>
+                      </div>
+                      <div class="col-span-6 sm:col-span-3">
+                          <label for="instrument-type" class="block text-sm font-medium text-gray-700">Stem #1 Instrument</label>
+                          <select id="instrument-type" name="stem-2-type" autocomplete="instrument-type-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            <option>Vocals</option>
+                            <option>Drums</option>
+                            <option>Bass</option>
+                            <option>Keys</option>
+                            <option>Strings</option>
+                            <option>Other</option>
+                          </select>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+            </div>
+
+            <div class="py-10">
+              <div class="md:grid md:grid-cols-3 md:gap-6">
+                <div class="md:col-span-1">
+                  <h3 class="text-lg font-medium leading-6 text-gray-900">Song Stem #3</h3>
+                </div>
+                <div class="mt-5 md:mt-0 md:col-span-2">
+                  <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700"> Stem #3 Audio</label>
+                        <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                          <div class="space-y-1 text-center">
+                            <div class="flex justify-center text-sm text-gray-600">
+                              <label for="file-upload" class="relative px-8 py-2 cursor-pointer bg-slate-700 rounded-lg font-medium text-white hover:bg-slate-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+                                <span>Upload Stem #3</span>
+                                <input id="file-upload" name="file-upload" type="file" class="stem-upload sr-only">
+                                <input name="stem-3-cid" type="text" class="hidden">
+                              </label>
+                            </div>
+                            <p class="text-xs text-gray-500">MP3 or WAV</p>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="col-span-6 sm:col-span-3">
+                        <label for="instrument-type" class="block text-sm font-medium text-gray-700">Stem #3 Instrument</label>
+                        <select id="instrument-type" name="stem-3-type" autocomplete="instrument-type-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                          <option>Vocals</option>
+                          <option>Drums</option>
+                          <option>Bass</option>
+                          <option>Keys</option>
+                          <option>Strings</option>
+                          <option>Other</option>
+                        </select>
+                      </div>
+                    </div>
+                </div>
+              </div>
+          </div>
+
+          <div class="py-10">
+            <div class="md:grid md:grid-cols-3 md:gap-6">
+              <div class="md:col-span-1">
+                <h3 class="text-lg font-medium leading-6 text-gray-900">Song Stem #4</h3>
+              </div>
+              <div class="mt-5 md:mt-0 md:col-span-2">
+                <div class="space-y-6">
+                  <div>
+                      <label class="block text-sm font-medium text-gray-700"> Stem #4 Audio</label>
+                      <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                        <div class="space-y-1 text-center">
+                          <div class="flex justify-center text-sm text-gray-600">
+                            <label for="file-upload" class="relative px-8 py-2 cursor-pointer bg-slate-700 rounded-lg font-medium text-white hover:bg-slate-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+                              <span>Upload Stem #4</span>
+                              <input id="file-upload" name="file-upload" type="file" class="stem-upload sr-only">
+                              <input name="stem-4-cid" type="text" class="hidden">
+                            </label>
+                          </div>
+                          <p class="text-xs text-gray-500">MP3 or WAV</p>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="col-span-6 sm:col-span-3">
+                      <label for="instrument-type" class="block text-sm font-medium text-gray-700">Stem #4 Instrument</label>
+                      <select id="instrument-type" name="stem-4-type" autocomplete="instrument-type-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        <option>Vocals</option>
+                        <option>Drums</option>
+                        <option>Bass</option>
+                        <option>Keys</option>
+                        <option>Strings</option>
+                        <option>Other</option>
+                      </select>
+                    </div>
+                  </div>
+              </div>
+            </div>
+        </div>
+
+        <div class="py-10">
+          <div class="md:grid md:grid-cols-3 md:gap-6">
+            <div class="md:col-span-1">
+              <h3 class="text-lg font-medium leading-6 text-gray-900">Song Stem #5</h3>
+            </div>
+            <div class="mt-5 md:mt-0 md:col-span-2">
+              <div class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700"> Stem #5 Audio</label>
+                    <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                      <div class="space-y-1 text-center">
+                        <div class="flex justify-center text-sm text-gray-600">
+                          <label for="file-upload" class="relative px-8 py-2 cursor-pointer bg-slate-700 rounded-lg font-medium text-white hover:bg-slate-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+                            <span>Upload Stem #5</span>
+                            <input id="file-upload" name="file-upload" type="file" class="stem-upload sr-only">
+                            <input name="stem-5-cid" type="text" class="hidden">
+                          </label>
+                        </div>
+                        <p class="text-xs text-gray-500">MP3 or WAV</p>
+                      </div>
+                    </div>
+                </div>
+                <div class="col-span-6 sm:col-span-3">
+                    <label for="instrument-type" class="block text-sm font-medium text-gray-700">Stem #5 Instrument</label>
+                    <select id="instrument-type" name="stem-5-type" autocomplete="instrument-type-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                      <option>Vocals</option>
+                      <option>Drums</option>
+                      <option>Bass</option>
+                      <option>Keys</option>
+                      <option>Strings</option>
+                      <option>Other</option>
+                    </select>
+                  </div>
+                </div>
+            </div>
+          </div>
+      </div>
+
+      <div class="py-10">
+        <div class="md:grid md:grid-cols-3 md:gap-6">
+          <div class="md:col-span-1">
+            <h3 class="text-lg font-medium leading-6 text-gray-900">Song Stem #6</h3>
+          </div>
+          <div class="mt-5 md:mt-0 md:col-span-2">
+            <div class="space-y-6">
+              <div>
+                  <label class="block text-sm font-medium text-gray-700"> Stem #6 Audio</label>
+                  <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                    <div class="space-y-1 text-center">
+                      <div class="flex justify-center text-sm text-gray-600">
+                        <label for="file-upload" class="relative px-8 py-2 cursor-pointer bg-slate-700 rounded-lg font-medium text-white hover:bg-slate-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+                          <span>Upload Stem #6</span>
+                          <input id="file-upload" name="file-upload" type="file" class="stem-upload sr-only">
+                          <input name="stem-6-cid" type="text" class="hidden">
+                        </label>
+                      </div>
+                      <p class="text-xs text-gray-500">MP3 or WAV</p>
+                    </div>
+                  </div>
+              </div>
+              <div class="col-span-6 sm:col-span-3">
+                  <label for="instrument-type" class="block text-sm font-medium text-gray-700">Stem #6 Instrument</label>
+                  <select id="instrument-type" name="stem-6-type" autocomplete="instrument-type-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <option>Vocals</option>
+                    <option>Drums</option>
+                    <option>Bass</option>
+                    <option>Keys</option>
+                    <option>Strings</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+              </div>
+          </div>
+        </div>
+        
+        <div class="flex justify-end mt-8">
+          <button id="submit" type="submit" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-xl font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Create Musical Experience!!!</button>
+        </div>
+      </div>
+    </form>
+
+
+
+
+    </div>
+    
+
+
+
+
+
+
+</body>
+</html>

@@ -11,7 +11,10 @@ require('./components/instrument')
 require('./main.css')
 require('./components/ui')
 
-const explainerText = "Welcome to the wonderful world of spatial audio! You are currently listening to the XXXXX track, which features a PIANO, DRUMS, VOCALS, and DRUMS."
+const explainerText = "Welcome to the wonderful world of spatial audio! You are currently listening to the XXXXX track, which features a PIANO, DRUMS, VOCALS, and DRUMS.\
+\
+You can position \
+"
 
 // add threemeshui update block
 window.addEventListener('load', () => {
@@ -40,8 +43,6 @@ window.addEventListener('load', () => {
         explainerElem?.setAttribute('text', {
             'value' : explainerText
         })
-
-        
     }
     
     const instrumentControllerEl = document.getElementById('instrument-controller') as Entity<any>
@@ -55,5 +56,15 @@ window.addEventListener('load', () => {
             instrumentController.positionTracks(btn.dataset.postype)
         })
     }
+
+    // setup play button
+    const playButton = document.getElementById('play-btn')
+    playButton?.addEventListener('click', () => {
+        const sounds = document.querySelectorAll('[sound]')
+        for(const s of sounds) {
+            // @ts-ignore
+            s.components.sound.playSound()
+        }
+    })
 })
 
