@@ -28,7 +28,6 @@
     "web3.storage": "^3.5.7"
   },
   "scripts": {
-    "build": "tsc",
     "start": "node ./dist/index.js"
   }
 }
