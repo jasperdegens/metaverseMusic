@@ -20,7 +20,7 @@ const baseScale = '0.5 0.5 0.5'
 let modelConfig = {
     keys: {
         id: '#keys',
-        scale: [1.25, 1, 1],
+        scale: [1.25, 1, 0.5],
         position: '0 0 0'
 },
     drums: {
@@ -30,17 +30,17 @@ let modelConfig = {
     },
     bass: {
         id: '#bass',
-        scale: [1, 1.5, 1],
+        scale: [1, 1.5, 0.5],
         position: '0 -0.5 0'
     },
     strings: {
         id: '#strings',
-        scale: [1, 1.3, 1],
+        scale: [1, 1.3, 0.5],
         position: '0 -0.4 0'
     },
     vocals: {
         id: '#vocals',
-        scale: [1, 1.3, 1],
+        scale: [0.5, 1.3, 0.5],
         position: '0 -0.5 0'
     },
     other: {
@@ -145,7 +145,7 @@ const instrumentController: InstrumentController = {
             // setup animations
             track.setAttribute('animation__pos_surround', {
                 property: 'position',
-                to: `${targetX.toFixed(2)} 1 ${targetZ.toFixed(2)}`,
+                to: `${targetX.toFixed(2)} 0 ${targetZ.toFixed(2)}`,
                 startEvents: 'position-surround',
                 dur: 750,
                 easing: 'easeInOutCubic'

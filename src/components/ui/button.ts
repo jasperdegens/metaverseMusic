@@ -21,7 +21,8 @@ const buttonComponent: ButtonComponent = {
         bgColor: {type: 'color', default: '#344955'},
         bgColorHover: {type: 'color', default: '#F9AA33'},
         canInteract: {type: 'boolean', default: 'true'},
-        wrapOffset: {type: 'int', default: '8'}
+        wrapOffset: {type: 'int', default: '8'},
+        font: {type: 'string', default: 'monoid'}
     },
     update: function () {
         this.el.setAttribute('text', {
@@ -29,8 +30,9 @@ const buttonComponent: ButtonComponent = {
             align: 'center',
             anchor: 'center',
             color: this.data.color,
+            font: this.data.font,
             // prevent z-fighting
-            zOffset: this.data.depth / 2 + 0.01,
+            zOffset: this.data.depth / 2 + 0.001,
             wrapCount: this.data.text.length + this.data.wrapOffset
         })
 

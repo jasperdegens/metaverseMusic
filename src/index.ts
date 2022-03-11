@@ -11,10 +11,7 @@ require('./components/instrument')
 require('./main.css')
 require('./components/ui')
 
-const explainerText = "Welcome to the wonderful world of spatial audio! You are currently listening to the XXXXX track, which features a PIANO, DRUMS, VOCALS, and DRUMS.\
-\
-You can position \
-"
+const explainerText = (title: string, artist: string, stems: ITrackData[]) => `Welcome to the wonderful world of spatial audio! You are currently listening to ${title} by ${artist}, which features ${stems.map(s => s.name).slice(0, stems.length - 1).join(", ")} and ${stems[stems.length - 1].name} stems. Press play below to start the track!`
 
 const apiEndpoint = 'http://localhost:4000'
 const getSongsUrl = `${apiEndpoint}/songs`
@@ -60,6 +57,12 @@ async function tryLoadSong () {
             const controller = document.querySelector('[instrument-controller]')
             const instumentController = controller.components['instrument-controller'] as InstrumentController
             instumentController.setupTracks(activeTracks)
+
+            // fill in explainer text
+            const explainerElem = document.getElementById('explainer-text') as Entity<any>
+            explainerElem?.setAttribute('text', {
+                'value' : explainerText(details.title, details.artist, activeTracks)
+            })
 
         } catch (error) {
             
@@ -201,12 +204,6 @@ window.addEventListener('load', () => {
             // load song data
             tryLoadSong()
 
-        })
-
-        // fill in explainer text
-        const explainerElem = document.getElementById('explainer-text') as Entity<any>
-        explainerElem?.setAttribute('text', {
-            'value' : explainerText
         })
     }
     

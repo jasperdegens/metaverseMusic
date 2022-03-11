@@ -8,7 +8,7 @@
     <script src="index.js"></script>
     <script src="https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js"></script>
 </head>
-<body class=""><div id="overlay-wrapper">
+<body class=""><div id="overlay-wrapper" class="">
     <div class="rainbow-bg z-10">
     <canvas
         id="confetti-canvas"
@@ -105,23 +105,23 @@
 
         <!-- Explainer UI -->
         <a-entity 
-            geometry="primitive: box; height: 7; width: 4; depth: 0.02"  
             position="-3 4 -4"
-            rotation="20 0 0"  
+            rotation="20 40 0"  
         >
             <a-entity
-                button="text: Welcome to Metaverse Music; width: 3.8; height: 0.4; wrapOffset: 1; canInteract: false;"
+                button="text: Welcome to Metaverse Music; width: 3.8; height: 0.57; wrapOffset: 4; canInteract: false;"
                 position="0 1.2 0.02"
             ></a-entity>
             
             <a-entity
-                geometry="primitive: box; height: 1; width: 3.8; depth: 0.02"
-                position="0 0 0.02"
+                geometry="primitive: box; height: 1.34; width: 3.8; depth: 0.02"
+                position="0 0.188 0.02"
+                material="color: #f066d2"
 
             >
                 <a-entity
                     id="explainer-text"
-                    text="width: 3.6"
+                    text="width: 3.6; font: monoid"
                     position="0 0 0.02"
 
                 >
@@ -130,8 +130,8 @@
             <a-entity
                     class=""
                     id="play-btn"
-                    button="text: Play Song; width: 3.6; height: 0.6"
-                    position="0.0 -2 0.02"
+                    button="text: Play Song; width: 2; height: 0.77; bgColor: #0aff74; bgColorHover: #a018fb; colorHover: #ffc800; color: #fff;"
+                    position="0.0 -0.92 0.02"
                 >
             </a-entity>
         </a-entity>
@@ -140,46 +140,56 @@
         <!-- Arrange UI -->
 
         <a-entity 
-            geometry="primitive: box; height: 7; width: 4; depth: 0.02"  
             position="3 4 -4"
-            rotation="20 0 0"  
+            rotation="20 -40 0"  
         >
             <a-entity
-                id="explainer-text"
-                text="width: 3.6"
+                button="text: Spatially arrange you stems; width: 3.8; height: 0.57; wrapOffset: 4; canInteract: false;"
+                position="0 1.2 0.02"
+            ></a-entity>
+            
+            <a-entity
+                geometry="primitive: box; height: 1.34; width: 3.8; depth: 0.02"
+                position="0 0.190 0.02"
+                material="color: #38699f;"
+            >
+                
+                <a-entity
+                text="value: As you move around the scene, the spatial location of the audio changes. You can create your own soundscape by clicking and dragging instruments, or can select from some preset arrangements below!; width: 3.6; font: monoid;"
                 position="0 0 0.02"
 
             >
             </a-entity>
-
+        </a-entity>
+            
             <a-entity
                 data-postype="mono"
                 class="instrument-position-btn"
-                button="text: MONO MODE; width: 1.7; height: 0.5"
-                position="-0.9 -0.7 0.02"
+                button="text: MONO; width: 1.4; height: 0.5; bgColor: #283d8f;"
+                position="-0.736 -0.8 0.02"
             >
             </a-entity>
             <a-entity
                 data-postype="stereo"
                 class="instrument-position-btn"
-                button="text: Stereo Mode; width: 1.7; height: 0.5"
-                position="0.9 -0.7 0.02"
+                button="text: STEREO; width: 1.4; height: 0.5; bgColor: #283d8f;"
+                position="0.736 -0.8 0.02"
                 >
-                </a-entity>
-                <a-entity
-                    data-postype="surround"
-                    class="instrument-position-btn"
-                    button="text: Surround Mode; width: 1.7; height: 0.5"
-                    position="-0.9 -1.4 0.02"
-                >
-                </a-entity>
-                <a-entity
-                data-postype="stage"
+            </a-entity>
+            <a-entity
+                data-postype="surround"
                 class="instrument-position-btn"
-                button="text: Stage Mode; width: 1.7; height: 0.5"
-                position="0.9 -1.4 0.02"
-                >
-                </a-entity>        
+                button="text: SURROUND; width: 1.4; height: 0.5; bgColor: #283d8f;"
+                position="-0.736 -1.37 0.02"
+            >
+            </a-entity>
+            <a-entity
+            data-postype="stage"
+            class="instrument-position-btn"
+            button="text: STAGE; width: 1.4; height: 0.5; bgColor: #283d8f;"
+            position="0.736 -1.37 0.02"
+            >
+            </a-entity>        
         </a-entity>
 
         <!-- <a-entity
