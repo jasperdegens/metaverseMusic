@@ -44,8 +44,8 @@ let modelConfig = {
         position: '0 -0.5 0'
     },
     other: {
-        id: '#drums',
-        scale: [1, 1.4, 1],
+        id: '#other',
+        scale: [1.25, 1, 0.8],
         position: '0 -0.5 0'
     },
 }
@@ -117,9 +117,7 @@ const instrumentController: InstrumentController = {
             })
 
             track.addEventListener('sound-loaded', (e) => {
-                console.log(e)
                 numLoaded += 1
-                console.log(numLoaded)
                 if(numLoaded == tracks.length) {
                     thisEl.sceneEl?.emit('songs-loaded')
                 }
@@ -164,7 +162,7 @@ const instrumentController: InstrumentController = {
 
             track.setAttribute('animation__pos_mono', {
                 property: 'position',
-                to: `${Math.random() * 2} 0 -3`,
+                to: `${(0.5 - Math.random()) * 2} 0 ${-3 + Math.random()}`,
                 startEvents: 'position-mono',
                 dur: 750,
                 easing: 'easeInOutCubic'
@@ -172,7 +170,7 @@ const instrumentController: InstrumentController = {
 
             track.setAttribute('animation__pos_stereo', {
                 property: 'position',
-                to: `${i % 2 == 0 ? `${Math.random() * -2 + -1}` : `${Math.random() * 2 + 1}`} 0 -3`,
+                to: `${i % 2 == 0 ? `${Math.random() * -2 + -1}` : `${Math.random() * 2 + 1}`} 0 ${-3 + Math.random()}`,
                 startEvents: 'position-stereo',
                 dur: 750,
                 easing: 'easeInOutCubic'
@@ -212,7 +210,7 @@ const instrumentController: InstrumentController = {
 
 
 const instrBaseScale = '1.5 1.5 1.5'
-const instrHoverScale = '1.65 1.65 1.65'
+const instrHoverScale = '1.75 1.75 1.75'
 
 const instrumentComponemt: InstrumentComponent = {
     dependencies: ['sound'],

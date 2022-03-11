@@ -26,7 +26,7 @@
         <span class="block xl:inline">Metaverse</span>
         <span class="block text-indigo-600 xl:inline">Music</span>
       </h1>
-      <p class="text-left mt-3 max-w-md mx-auto text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">Ever wonder how music might exist in the metaverse? Metaverse music is a WebXR prototype that puts you inside your music, creating a spatial, interactive experience. Jump in and find out how cool music can be!</p>
+      <p class="text-left mt-3 max-w-md mx-auto text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">Ever wonder how music might exist in the metaverse? Metaverse music is a WebXR prototype that puts you inside of a song, creating a spatial, interactive experience. Jump in and find out how cool music can be!</p>
       <p class="text-left mt-3 max-w-md mx-auto text-xl md:text-2xl text-gray-500 sm:text-lg md:mt-5 md:max-w-3xl">Select a song below or <a class="font-bold text-blue-500 hover:underline" href="/create.html">create a new song!</a></p>
       <div class="mt-8 flex flex-col">
         <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -81,6 +81,7 @@
             <a-asset-item id="drums" src="assets/models/drums.glb"></a-asset-item>
             <a-asset-item id="strings" src="assets/models/guitar.glb"></a-asset-item>
             <a-asset-item id="vocals" src="assets/models/vocals.glb"></a-asset-item>
+            <a-asset-item id="other" src="assets/models/other.glb"></a-asset-item>
             <img id="paris" src="assets/paris.jpg">
             <!-- <audio id="violin1" src="assets/Voilin 1 A.mp3" preload="auto"></audio>
             <audio id="violin2" src="assets/Voilin 2 A.mp3" preload="auto"></audio>
@@ -121,8 +122,10 @@
             >
                 <a-entity
                     id="explainer-text"
-                    text="width: 3.6; font: monoid"
+                    text="width: 3.6; font: monoid; value: Welcome to the wonderful world of spatial audio! You are currently listening to Nothing Good Comes Easy by Felix Cartel, which features Vocals, Bass, Drums, Keys and Strings stems. Press play below to start the track!;"
                     position="0 0 0.02"
+                    geometry="primitive: plane; height: 3; width: 4"
+                    material="opacity: 0; depthTest: false"
 
                 >
                 </a-entity>

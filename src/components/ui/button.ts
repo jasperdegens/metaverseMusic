@@ -32,7 +32,7 @@ const buttonComponent: ButtonComponent = {
             color: this.data.color,
             font: this.data.font,
             // prevent z-fighting
-            zOffset: this.data.depth / 2 + 0.001,
+            zOffset: this.data.depth / 2 + 0.04,
             wrapCount: this.data.text.length + this.data.wrapOffset
         })
 

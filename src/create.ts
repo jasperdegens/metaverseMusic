@@ -11,6 +11,10 @@ const postUrl = `${baseUrl}/post-song`
 const handleFormSubmit = async (e: SubmitEvent, form: HTMLFormElement) => {
     e.preventDefault()
 
+    // select submit button and change text 
+    const submitButton = document.getElementById('submit')
+    submitButton!.innerHTML = 'Adding song data...'
+
     const fd = new FormData(form)
 
     for(let i = 1; i < 8; i++) {
@@ -24,13 +28,17 @@ const handleFormSubmit = async (e: SubmitEvent, form: HTMLFormElement) => {
 
     // Define what happens on successful data submission
     XHR.addEventListener( "load", function(event) {
-        console.log('siccess')
         try {
+            submitButton!.innerHTML = 'Song created!'
             const data = JSON.parse(XHR.response)
             console.log(data)
         } catch (error) {
-            
+            submitButton!.innerHTML = 'Error creating song...'
         }
+
+        setTimeout(() => {
+            window.location.replace('/')
+        }, 1000)
     } );
 
     // Define what happens in case of error
