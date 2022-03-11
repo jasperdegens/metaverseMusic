@@ -3,7 +3,7 @@ require('./main.css')
 // @ts-ignore
 import ConfettiGenerator from 'confetti-js'
 
-const baseUrl = 'http://localhost:4000'
+const baseUrl = 'https://enigmatic-coast-18734.herokuapp.com'
 const uploadUrl = `${baseUrl}/upload-stem`
 const postUrl = `${baseUrl}/post-song`
 
