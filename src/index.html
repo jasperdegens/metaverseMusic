@@ -39,6 +39,11 @@
     </div>
 </div>
         <a-assets>
+            <a-asset-item id="keys" src="assets/models/piano.glb"></a-asset-item>
+            <a-asset-item id="bass" src="assets/models/bass.glb"></a-asset-item>
+            <a-asset-item id="drums" src="assets/models/drums.glb"></a-asset-item>
+            <a-asset-item id="guitar" src="assets/models/guitar.glb"></a-asset-item>
+            <a-asset-item id="vocals" src="assets/models/vocals.glb"></a-asset-item>
             <!-- <audio id="violin1" src="assets/Voilin 1 A.mp3" preload="auto"></audio>
             <audio id="violin2" src="assets/Voilin 2 A.mp3" preload="auto"></audio>
             <audio id="viola" src="assets/Viola A.mp3" preload="auto"></audio>
@@ -51,6 +56,7 @@
         
         <a-entity id="main-camera" camera="active: true" look-controls wasd-controls position="0 1.6 0">
             <a-entity cursor="fuse: false;"
+                raycaster="objects: .collidable"
                 position="0 0 -0.9"
                 geometry="primitive: ring; radiusInner: 0.003; radiusOuter: 0.006"
                 material="color: black; shader: flat">

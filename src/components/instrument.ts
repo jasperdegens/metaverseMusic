@@ -16,6 +16,40 @@ interface ITrackData {
     src: string
 }
 
+const baseScale = '0.5 0.5 0.5'
+let modelConfig = {
+    keys: {
+        id: '#keys',
+        scale: [1.25, 1, 1],
+        position: '0 0 0'
+},
+    drums: {
+        id: '#drums',
+        scale: [1.4, 1, 1],
+        position: '0 -0.5 0'
+    },
+    bass: {
+        id: '#bass',
+        scale: [1, 1.5, 1],
+        position: '0 -0.5 0'
+    },
+    guitar: {
+        id: '#guitar',
+        scale: [1, 1.3, 1],
+        position: '0 -0.4 0'
+    },
+    vocals: {
+        id: '#vocals',
+        scale: [1, 1.3, 1],
+        position: '0 -0.5 0'
+    },
+    other: {
+        id: '#drums',
+        scale: [1, 1.4, 1],
+        position: '0 -0.5 0'
+    },
+}
+
 const sampleTrackData: ITrackData[] = [
     {
         name: 'Vocals',
@@ -85,7 +119,7 @@ const instrumentController: InstrumentController = {
                 name: trackData.name
             })
 
-            track.setAttribute('position', `${1 + -(tracks.length / 2) * 2 + i * 2 } 1 -3`)
+            track.setAttribute('position', `${1 + -(tracks.length / 2) * 2 + i * 2 } 0 -3`)
 
             const id = `track-${i}`
             track.setAttribute('id', id)
@@ -166,6 +200,9 @@ const instrumentController: InstrumentController = {
 // }
 
 
+const instrBaseScale = '1.5 1.5 1.5'
+const instrHoverScale = '1.65 1.65 1.65'
+
 const instrumentComponemt: InstrumentComponent = {
     dependencies: ['sound'],
     schema: {
@@ -176,50 +213,47 @@ const instrumentComponemt: InstrumentComponent = {
         // create geom depending on instrument type
         const instrumentType = this.data.instrumentType as InstrumentType
         
-        let geom
-        switch (instrumentType) {
-            case 'bass':
-                geom = 'cone'
-                break;
-            case 'drums':
-                geom = 'box'
-                break;
-            case 'guitar':
-                geom = 'cylinder'
-                break;
-            case 'keys':
-                geom = 'dodecahedron'
-                break;
-            case 'vocals':
-                geom = 'sphere'
-                break;
-            default:
-                geom = 'torus'
-                break;
-        }
+        let geom = modelConfig[instrumentType]
+        
 
         // create geom elem
         const geomEl = document.createElement('a-entity')
+        // add collider for geomEl
         geomEl.setAttribute('geometry', {
-            primitive: geom,
-            radius: 1,
-            width: 1,
-            depth: 1,
-            height: 1
+            primitive: 'box',
+            width: geom.scale[0],
+            height: geom.scale[1],
+            depth: geom.scale[2],
         })
+        geomEl.setAttribute('material', {
+            'shader': 'flat',
+            depthTest: 'false',
+            opacity: '0.5'
+        })
+        geomEl.setAttribute('scale', instrBaseScale)
+        geomEl.classList.add('collidable')
+
+        // add model as child so can scale and avoid hit detection
+        const instrumentModel = document.createElement('a-entity')
+
+        instrumentModel.setAttribute('gltf-model', geom.id)
+        instrumentModel.setAttribute('scale', baseScale)
+        instrumentModel.setAttribute('position', geom.position)
+        geomEl.appendChild(instrumentModel)
+
 
         // add in hover anims -- needs to be initted first because of aframe error
         setTimeout(() => {
             geomEl.setAttribute('animation__hoverStartScale', {
                 property: 'scale',
-                to: '1.1 1.1 1.1s',
+                to: instrHoverScale,
                 startEvents: 'mouseenter',
                 dur: 125,
             })
 
             geomEl.setAttribute('animation__hoverStopScale', {
                 property: 'scale',
-                to: '1 1 1',
+                to: instrBaseScale,
                 startEvents: 'mouseleave',
                 dur: 125
             })

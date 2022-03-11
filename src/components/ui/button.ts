@@ -47,6 +47,9 @@ const buttonComponent: ButtonComponent = {
         })
 
         if(this.data.canInteract) {
+
+            this.el.classList.add('collidable')
+
             this.el.setAttribute('animation__hoverStart', {
                 property: 'components.material.material.color',
                 type: 'color',
