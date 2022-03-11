@@ -1,5 +1,5 @@
 
-import { ethPrivKey, infuraKey, pinataKey, pinataSecret, web3StorageApiKey } from './.keys'
+import { ethPrivKey, infuraKey, pinataKey, pinataSecret } from './keys'
 import fs from 'fs'
 import pinataSDK, { PinataOptions, PinataPinOptions, PinataPinResponse } from '@pinata/sdk'
 import { Wallet, providers } from "ethers";
