@@ -133,7 +133,7 @@ const getSongs = async() => {
 
     const tblName = await getMusicTable(tbl)
 
-    const query = `SELECT title FROM ${tblName};`
+    const query = `SELECT title, artist FROM ${tblName};`
 
     const q = await tbl.query(query)
 

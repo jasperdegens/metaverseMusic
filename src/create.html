@@ -7,14 +7,18 @@
     <title>Metaverse Music</title>
     <script src="create.js"></script>
 </head>
-<body class="w-screen min-h-full bg-slate-500 overflow-x-clip">
+<body class="w-full h-full overflow-x-clip py-12 relative bg-stone-100">
+  <!-- <div class="rainbow-bg"></div> -->
   <canvas
         id="confetti-canvas"
         class="fixed w-screen h-screen top-0 bottom-0"
     >   
     </canvas>
-    <div class="max-w-4xl px-12 py-8 m-auto my-12 bg-white rounded-lg drop-shadow-lg opacity-95">
-        <h1 class="text-5xl mb-4">Create Metaverse Music</h1>
+    <div class="max-w-4xl px-12 py-8 m-auto bg-white rounded-lg drop-shadow-lg opacity-95">
+        <h1 class="text-5xl mb-4 font-bold">
+          <span class="block xl:inline">Create Metaverse</span>
+          <span class="block text-indigo-600 xl:inline">Music</span>
+        </h1>
         <h2 class="text-3xl mb-12">Build a soundscape from your stems!</h2>
         
         <form class="space-y-6" method="POST">
@@ -326,7 +330,8 @@
             </div>
           </div>
         
-        <div class="flex justify-end mt-8">
+        <div class="flex justify-end mt-8 -mb-8">
+          <a href="/" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-xl font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">Cancel</a>
           <button id="submit" type="submit" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-xl font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Create Musical Experience!!!</button>
         </div>
       </div>

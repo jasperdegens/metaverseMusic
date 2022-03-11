@@ -53,7 +53,9 @@ window.addEventListener('load', () => {
     var confettiSettings = { target: 'confetti-canvas',
     props: [
             {type: 'svg', src: 'assets/quarterNote.svg'},
-            {type: 'svg', src: 'assets/quarterNotes.svg'}
+            {type: 'svg', src: 'assets/quarterNotes.svg'},
+            {type: 'svg', src: 'assets/piano.svg'},
+            {type: 'svg', src: 'assets/trumpet.svg'}
         ],
         rotate: true,
         size: 3,

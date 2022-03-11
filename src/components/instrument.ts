@@ -6,11 +6,11 @@ interface IInstrumentProps {
 
 }
 
-type InstrumentComponent = ComponentDefinition<IInstrumentProps>
+export type InstrumentComponent = ComponentDefinition<IInstrumentProps>
 
-type InstrumentType = 'keys' | 'guitar' | 'bass' | 'vocals' | 'drums' | 'other'
+export type InstrumentType = 'keys' | 'strings' | 'bass' | 'vocals' | 'drums' | 'other'
 
-interface ITrackData {
+export interface ITrackData {
     name: string, 
     instrument: InstrumentType,
     src: string
@@ -33,8 +33,8 @@ let modelConfig = {
         scale: [1, 1.5, 1],
         position: '0 -0.5 0'
     },
-    guitar: {
-        id: '#guitar',
+    strings: {
+        id: '#strings',
         scale: [1, 1.3, 1],
         position: '0 -0.4 0'
     },
@@ -73,7 +73,7 @@ const sampleTrackData: ITrackData[] = [
     },
     {
         name: 'Strings',
-        instrument: "guitar",
+        instrument: "strings",
         src: 'assets/ngce/strings.mp3'
     }
 ]
@@ -93,7 +93,7 @@ export type InstrumentController = ComponentDefinition<IInstrumentControllerProp
 
 const instrumentController: InstrumentController = {
     init: function () {
-        this.setupTracks(sampleTrackData)
+        // this.setupTracks(sampleTrackData)
     },
     tracks: [],
     positionTracks: function (posType: TrackPositionType) {
@@ -105,6 +105,8 @@ const instrumentController: InstrumentController = {
 
         const radianInc = Math.PI * 2 / tracks.length
         const radianOffset = radianInc * 0.5
+        let numLoaded = 0
+        const thisEl = this.el
         for (let i = 0; i < tracks.length; i++) {
             const trackData = tracks[i];
 
@@ -112,6 +114,15 @@ const instrumentController: InstrumentController = {
             track.setAttribute('sound', {
                 'src': `url(${trackData.src})`,
                 rolloffFactor: 0.2,
+            })
+
+            track.addEventListener('sound-loaded', (e) => {
+                console.log(e)
+                numLoaded += 1
+                console.log(numLoaded)
+                if(numLoaded == tracks.length) {
+                    thisEl.sceneEl?.emit('songs-loaded')
+                }
             })
 
             track.setAttribute('instrument', {
@@ -228,7 +239,7 @@ const instrumentComponemt: InstrumentComponent = {
         geomEl.setAttribute('material', {
             'shader': 'flat',
             depthTest: 'false',
-            opacity: '0.5'
+            opacity: '0',
         })
         geomEl.setAttribute('scale', instrBaseScale)
         geomEl.classList.add('collidable')
