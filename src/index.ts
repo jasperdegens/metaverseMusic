@@ -17,7 +17,7 @@ const explainerText = (title: string, artist: string, stems: ITrackData[]) => `W
 const apiEndpoint = 'https://enigmatic-coast-18734.herokuapp.com'
 const getSongsUrl = `${apiEndpoint}/songs`
 const getSongDetails = `${apiEndpoint}/song`
-const baseGateway = 'https://gateway.pinata.cloud/ipfs'
+const baseGateway = 'https://ipfs.io/ipfs'
 
 
 let songTitle = ''
@@ -34,9 +34,7 @@ async function tryLoadSong () {
         const activeTracks: ITrackData[] = []
 
         try {
-            console.log(XHR.response)
             const data = JSON.parse(XHR.response)
-            console.log(data)
             const details = data.data
 
             // load in all stems
@@ -54,7 +52,6 @@ async function tryLoadSong () {
 
             // setup component
 
-            console.log(activeTracks)
             const controller = document.querySelector('[instrument-controller]')
             const instumentController = controller.components['instrument-controller'] as InstrumentController
             instumentController.setupTracks(activeTracks)
@@ -100,7 +97,6 @@ const songRow = (title: string, artist: string) => {
     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">${artist}</td>
     </td>
     </tr>`
-  console.log(html)
 
   return htmlToElement(html)
 
@@ -116,10 +112,10 @@ const handleRowClick = (row: HTMLElement, table: HTMLElement) => {
 
     // first remove all avtive class
     for(let i = 0; i < table.children.length; i++) {
-        table.children[i].children[0].classList.remove('rainbow-bg', 'text-white')
+        table.children[i].classList.remove('rainbow-fill', 'text-white')
     }
 
-    row.children[0].classList.add('rainbow-bg', 'text-white')
+    row.classList.add('rainbow-fill', 'text-white')
     songTitle = row.children[0].innerHTML;
 }
 
@@ -132,12 +128,9 @@ const reqSongs = async () => {
         
         // get table elem
         const songTable = document.getElementById('song-table')
-        console.log(songTable)
         songTable!.innerHTML = ''
         try {
-            console.log(XHR.response)
             const data = JSON.parse(XHR.response)
-            console.log(data)
             const songs = data.songs
 
             for(let i = 0; i < songs.length; i++) {
@@ -174,8 +167,28 @@ const reqSongs = async () => {
 reqSongs()
 
 
+function iOS() {
+    return [
+      'iPad Simulator',
+      'iPhone Simulator',
+      'iPod Simulator',
+      'iPad',
+      'iPhone',
+      'iPod'
+    ].includes(navigator.platform)
+    // iPad on iOS 13 detection
+    || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
+}
+
 // add threemeshui update block
 window.addEventListener('load', () => {
+
+    // show ios disclaimer if ios
+    if(iOS()) {
+        document.getElementById('ios')?.classList.remove('hidden')
+    }
+
+
     var confettiSettings = { target: 'confetti-canvas',
         props: [
             {type: 'svg', src: 'assets/quarterNote.svg'},
@@ -197,9 +210,6 @@ window.addEventListener('load', () => {
             // hide overlay
             document.getElementById('overlay-wrapper')?.classList.add('hidden')
 
-
-            console.log(e)
-            
             confetti.clear()
 
             // load song data

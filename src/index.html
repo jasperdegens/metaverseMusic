@@ -26,7 +26,8 @@
         <span class="block xl:inline">Metaverse</span>
         <span class="block text-indigo-600 xl:inline">Music</span>
       </h1>
-      <p class="text-left mt-3 max-w-md mx-auto text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">Ever wonder how music might exist in the metaverse? Metaverse music is a WebXR prototype that puts you inside of a song, creating a spatial, interactive experience. Jump in and find out how cool music can be!</p>
+      <p class="text-left mt-3 max-w-md mx-auto text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">Ever wonder how music might exist in the metaverse? Metaverse music is a WebXR prototype that puts you inside of a song, creating a spatial, interactive audio experience. Jump in and find out how cool music can be!</p>
+      <p id='ios' class="hidden text-left mt-3 max-w-md mx-auto text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl"><b>NOTE:</b> if you are using an iphone, please access this webpage through the <a href="https://apps.apple.com/us/app/webxr-viewer/id1295998056" class='text-blue-500 hover:text-blue-700'>WebXR Viewer app</a>.</p>
       <p class="text-left mt-3 max-w-md mx-auto text-xl md:text-2xl text-gray-500 sm:text-lg md:mt-5 md:max-w-3xl">Select a song below or <a class="font-bold text-blue-500 hover:underline" href="/create.html">create a new song!</a></p>
       <div class="mt-8 flex flex-col">
         <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -41,7 +42,10 @@
                   </tr>
                 </thead>
                 <tbody id="song-table" class="bg-white text-left">
-
+                    <tr>
+                        <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">Loading...</td>
+                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Loading...</td>
+                    </tr>
                 </tbody>
               </table>
             </div>
@@ -106,7 +110,7 @@
 
         <!-- Explainer UI -->
         <a-entity 
-            position="-3 4 -4"
+            position="-3 4 -6"
             rotation="20 40 0"  
         >
             <a-entity
@@ -143,7 +147,7 @@
         <!-- Arrange UI -->
 
         <a-entity 
-            position="3 4 -4"
+            position="3 4 -6"
             rotation="20 -40 0"  
         >
             <a-entity

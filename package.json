@@ -37,7 +37,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack --watch",
     "build": "webpack",
-    "start": "webpack serve --open"
+    "start": "webpack serve --open --https"
   },
   "devDependencies": {
     "webpack-cli": "^4.9.2"

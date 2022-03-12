@@ -87,7 +87,7 @@ interface IInstrumentControllerProps {
 }
 
 const posRadius = 3
-const stageRadiansSpread = 120 / 180 * Math.PI
+const stageRadiansSpread = 100 / 180 * Math.PI
 
 export type InstrumentController = ComponentDefinition<IInstrumentControllerProps>
 
@@ -128,7 +128,7 @@ const instrumentController: InstrumentController = {
                 name: trackData.name
             })
 
-            track.setAttribute('position', `${1 + -(tracks.length / 2) * 2 + i * 2 } 0 -3`)
+            track.setAttribute('position', `${1 + -(tracks.length / 2) * 1.5 + i * 1.5 } 0 -4`)
 
             const id = `track-${i}`
             track.setAttribute('id', id)
@@ -150,8 +150,8 @@ const instrumentController: InstrumentController = {
             })
 
             const stageRadians = stageRadiansSpread / 2 - radians / 3.0
-            const stageX = Math.cos(stageRadians) * posRadius * 2 * -1
-            const stageZ = Math.sin(stageRadians) * posRadius * 3
+            const stageX = Math.cos(stageRadians) * posRadius * 3 * -1
+            const stageZ = Math.sin(stageRadians) * posRadius * 2
             track.setAttribute('animation__pos_stage', {
                 property: 'position',
                 to: `${stageZ.toFixed(2)} 0 ${stageX.toFixed(2)}`,
@@ -162,7 +162,7 @@ const instrumentController: InstrumentController = {
 
             track.setAttribute('animation__pos_mono', {
                 property: 'position',
-                to: `${(0.5 - Math.random()) * 2} 0 ${-3 + Math.random()}`,
+                to: `${(0.5 - Math.random()) * 2} 0 ${-4 + Math.random()}`,
                 startEvents: 'position-mono',
                 dur: 750,
                 easing: 'easeInOutCubic'
@@ -170,7 +170,7 @@ const instrumentController: InstrumentController = {
 
             track.setAttribute('animation__pos_stereo', {
                 property: 'position',
-                to: `${i % 2 == 0 ? `${Math.random() * -2 + -1}` : `${Math.random() * 2 + 1}`} 0 ${-3 + Math.random()}`,
+                to: `${i % 2 == 0 ? `${Math.random() * -2 + -1}` : `${Math.random() * 2 + 1}`} 0 ${-4 + Math.random()}`,
                 startEvents: 'position-stereo',
                 dur: 750,
                 easing: 'easeInOutCubic'
