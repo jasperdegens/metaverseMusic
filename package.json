@@ -36,7 +36,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack --watch",
-    "build": "webpack",
+    "build": "webpack && cd dist && surge --domain metaverse-music.surge.sh",
     "start": "webpack serve --open --https"
   },
   "devDependencies": {

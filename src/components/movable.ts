@@ -63,6 +63,7 @@ const moveableComponent: MovableComponent = {
         const thisElem = this
         setTimeout(() => {
             document.addEventListener('click', thisElem.stopMoving)
+            document.addEventListener('pointerup', thisElem.stopMoving)
         }, 20)
 
         this.el.removeEventListener('click', this.startMoving)
@@ -70,6 +71,7 @@ const moveableComponent: MovableComponent = {
     },
     stopMoving: function() {
         document.removeEventListener('click', this.stopMoving)
+        document.removeEventListener('pointerup', this.stopMoving)
         this.moving = false
         const thisElem = this
         setTimeout(() => {

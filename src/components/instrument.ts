@@ -91,6 +91,29 @@ const stageRadiansSpread = 100 / 180 * Math.PI
 
 export type InstrumentController = ComponentDefinition<IInstrumentControllerProps>
 
+
+const pinataBackupUrl = 'https://gateway.pinata.cloud/ipfs'
+
+function tryReloadSound(soundElem: Component<any, System<any>>, src: string, count = 0) {
+    // @ts-ignore    
+    soundElem.audioLoader.manager.onError = () => {
+        console.log('there was a loading error')
+         // @ts-ignore
+         document.getElementById('play-btn')?.setAttribute('button', {
+            'text': 'IPFS error. Please refresh :{'
+        })
+    }
+
+    // @ts-ignore
+    if(soundElem.loaded) return
+
+    // simplest way to try to relead is to just refresh the url
+    const splitUrl = src.split('/')
+    soundElem.el.setAttribute('sound', 'src', `${pinataBackupUrl}/${splitUrl[splitUrl.length - 1]}`)
+    
+
+}
+
 const instrumentController: InstrumentController = {
     init: function () {
         // this.setupTracks(sampleTrackData)
@@ -116,7 +139,15 @@ const instrumentController: InstrumentController = {
                 rolloffFactor: 0.2,
             })
 
+            // add timeout to try and reload sound if initial load fails
+            // this will try in 20 seconds
+            setTimeout(() => {
+                tryReloadSound(track.components.sound, trackData.src)
+            }, 20000)
+
+
             track.addEventListener('sound-loaded', (e) => {
+                console.log(numLoaded)
                 numLoaded += 1
                 if(numLoaded == tracks.length) {
                     thisEl.sceneEl?.emit('songs-loaded')
@@ -278,9 +309,6 @@ const instrumentComponemt: InstrumentComponent = {
         })
         instrumentLabel.setAttribute('position', `0 1.5 0`)
         
-        instrumentLabel.addEventListener('click', () => {
-            console.log(instrumentLabel.getAttribute('text'))
-        })
         this.el.appendChild(instrumentLabel)
         
         // hook up mouseover to trigger label mouseover
