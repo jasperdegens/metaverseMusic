@@ -230,6 +230,22 @@ window.addEventListener('load', () => {
         })
     }
 
+    
+    
+    // add event listener to buttons for positioning of instruments
+    const volumeBtns = document.getElementsByClassName('volume-btn')
+    for(let i = 0; i < volumeBtns.length; i++) {
+        const btn = volumeBtns[i]
+        btn.addEventListener('click', () => {
+            const sounds = document.querySelectorAll('[sound]')
+            for (const sound of sounds) {
+                // @ts-ignore
+                sound.setAttribute('sound', 'volume', btn.dataset.volume)
+            }
+
+        })
+    }
+
     // setup play button
     const a = document.querySelector('a-entity')
     const playButton = document.getElementById('play-btn') as Entity<any>

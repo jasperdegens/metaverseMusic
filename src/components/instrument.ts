@@ -136,7 +136,7 @@ const instrumentController: InstrumentController = {
             const track = document.createElement('a-entity')
             track.setAttribute('sound', {
                 'src': `url(${trackData.src})`,
-                rolloffFactor: 0.2,
+                rolloffFactor: 0.5,
             })
 
             // add timeout to try and reload sound if initial load fails
